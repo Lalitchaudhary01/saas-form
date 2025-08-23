@@ -1,15 +1,11 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import React from 'react'
 
 const PageNotFound = () => {
   return (
-    <div className="bg-black flex min-h-screen flex-col items-center justify-center gap-4 ">
-      <h1 className="text-3xl hover:text-primary text-white">
-        {" "}
-        Page Not Found
-      </h1>
+    <div className='h-screen w-screen flex items-center justify-center'>
+        <h1 className='font-bold text-2xl'>Page not found 🐶</h1>
     </div>
-  );
-};
+  )
+}
 
-export default PageNotFound;
+export default PageNotFound

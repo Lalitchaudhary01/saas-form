@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import {
   Card,
@@ -8,11 +8,43 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-
 import { PricingPlan, pricingPlan } from "@/lib/pricingplan";
+import { Badge } from "./ui/badge";
+import {useRouter}  from "next/navigation";
+import { getStripe } from "@/lib/stripe-client";
 
-const PricingPage = () => {
+type Props = {
+  userId: string | undefined;
+};
+
+const PricingPage: React.FC<Props> = ({ userId }) => {
+  const router = useRouter();
+
+  const checkoutHandler = async (price: number, plan: string) => {
+    
+    if (!userId) {
+      router.push("/sign-in");
+    }
+    if (price === 0) {
+      return;
+    }
+    try {
+      const { sessionId } = await fetch("/api/stripe/checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ price, userId, plan }),
+      }).then((res) => res.json());
+
+      const stripe = await getStripe();
+      
+      stripe?.redirectToCheckout({sessionId});
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="text-center mb-16">
@@ -57,6 +89,16 @@ const PricingPage = () => {
                   plan.level === "Enterprise" &&
                   "text-black bg-white hover:bg-null"
                 } w-full`}
+                onClick={() =>
+                  checkoutHandler(
+                    plan.level === "Pro"
+                      ? 29
+                      : plan.level === "Enterprise"
+                      ? 70
+                      : 0,
+                    plan.level
+                  )
+                }
               >
                 Get started with {plan.level}
               </Button>

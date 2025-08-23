@@ -1,12 +1,17 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent, 
+  CardHeader,
+  CardTitle,
+} from "./ui/card"; 
 import { Eye } from "lucide-react";
 
 type Props = {
-  noOfSubmissions: number;
-};
+  noOfSubmissions:number;
+}
 
-const Analytics: React.FC<Props> = ({ noOfSubmissions }) => {
+const Analytics : React.FC<Props> = ({noOfSubmissions}) => {
   return (
     <div>
       <Card className="w-[350px] shadow-md shadow-yellow-600">

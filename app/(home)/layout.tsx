@@ -17,8 +17,8 @@ const layout = ({ children }: { children: React.ReactNode }) => {
               {" "}
               <Button variant={"link"}>Dashboard</Button>
             </Link>
-            <UserButton />
-            <DarkMode />
+            <UserButton afterSignOutUrl="/sign-in" />
+            <DarkMode /> 
           </div>
         </nav>
       </div>

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import GenerateFormInput from "./GenerateFormInput";
 import { Button } from "./ui/button";
@@ -24,11 +24,11 @@ const suggestionBtnText: SuggestionText[] = [
 ];
 
 type Props = {
-  totalForms: number;
-  isSubscribed: boolean;
-};
+  totalForms:number;
+  isSubscribed:boolean
+}
 
-const HeroSection: React.FC<Props> = ({ totalForms, isSubscribed }) => {
+const HeroSection :React.FC<Props> = ({totalForms, isSubscribed}) => {
   const [text, setText] = useState<string>("");
 
   return (
@@ -48,15 +48,10 @@ const HeroSection: React.FC<Props> = ({ totalForms, isSubscribed }) => {
         </div>
       </div>
       {/* create input field  */}
-      <GenerateFormInput />
+      <GenerateFormInput text={text} totalForms={totalForms} isSubscribed={isSubscribed}/>
       <div className="grid grid-cols-4 gap-3">
         {suggestionBtnText.map((item: SuggestionText, index: number) => (
-          <Button
-            onClick={() => setText(item.text)}
-            key={index}
-            className="rounded-full h-10"
-            variant={"outline"}
-          >
+          <Button onClick={()=> setText(item.text)} key={index} className="rounded-full h-10" variant={"outline"}>
             {item.label}
           </Button>
         ))}
